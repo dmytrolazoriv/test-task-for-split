@@ -92,7 +92,7 @@
         "popup_image": "shopify:\/\/shop_images\/DIY-beard-oil-bottles_4460x4460_copy.jpg",
         "popup_subheading": "Get the look",
         "popup_heading": "For Business or Ceremony",
-        "popup_delay": 0,
+        "popup_delay": 5,
         "show_once": false
       }
     }
