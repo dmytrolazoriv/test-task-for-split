@@ -66,10 +66,40 @@
         "padding_top": 44,
         "padding_bottom": 36
       }
+    },
+    "f9fea5b0-15a6-4c13-84ea-e298c9290f78": {
+      "type": "popup",
+      "blocks": {
+        "088d6b33-baa1-440f-a437-d010953b79ad": {
+          "type": "product",
+          "settings": {
+            "product": "silk-monstera-frond"
+          }
+        },
+        "1a8ad17a-6664-4c26-800b-35007382a6c4": {
+          "type": "product",
+          "settings": {
+            "product": "everything-seasoning"
+          }
+        }
+      },
+      "block_order": [
+        "088d6b33-baa1-440f-a437-d010953b79ad",
+        "1a8ad17a-6664-4c26-800b-35007382a6c4"
+      ],
+      "settings": {
+        "enable_popup": true,
+        "popup_image": "shopify:\/\/shop_images\/DIY-beard-oil-bottles_4460x4460_copy.jpg",
+        "popup_subheading": "Get the look",
+        "popup_heading": "For Business or Ceremony",
+        "popup_delay": 0,
+        "show_once": false
+      }
     }
   },
   "order": [
     "image_banner",
-    "featured_collection"
+    "featured_collection",
+    "f9fea5b0-15a6-4c13-84ea-e298c9290f78"
   ]
 }
