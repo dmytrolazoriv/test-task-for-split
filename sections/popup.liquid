@@ -1,0 +1,179 @@
+{%- if section.settings.enable_popup -%}
+  {%- if section.settings.show_once -%}
+  <div class="popup__bg">
+      <div class="popup" data-popup-delay="{{ section.settings.popup_delay }}" data-show-once="{{ section.settings.show_once }}">
+      <div class="popup__container">
+      <div class="popup__row">
+        <div class="popup__column">
+          <img src="{{ section.settings.popup_image | image_url: width: 500 }}"
+               alt="{{ section.settings.popup_image.alt | escape }}" loading="lazy">
+        </div>
+
+        <div class="popup__column">
+          <h3 class="popup__subheading">{{ section.settings.popup_subheading }}</h3>
+          <h1 class="popup__heading">{{ section.settings.popup_heading }}</h1>
+
+          {%- for block in section.blocks -%}
+            {%- if block.settings.product -%}
+              {%- assign product = block.settings.product -%}
+              <div class="popup__product-card product-card" {{ block.shopify_attributes }}>
+                <a class="product-card__link" href="{{ product.url }}">
+                  {%- for image in product.images limit: 1 -%}
+                    <div class="product-card__image">
+                      <img src="{{ image.src | image_url: width: 200 }}" alt="{{ image.alt | escape }}" loading="lazy">
+                    </div>
+                  {%- endfor -%}
+                  <div class="product-card__body">
+                    {%- for variant in product.variants limit: 1 -%}
+                      <div class="product-card__sku">SKU: {{ variant.sku }}</div>
+                      <div class="product-card__title">{{ product.title | escape }}</div>
+                      <div class="product-card__variant-title">{{ variant.title }}</div>
+                    {%- endfor -%}
+                    <div class="product-card__price">
+                      {{ product.price | money_with_currency }}&nbsp;<span class="product-card__compare-price">{{ product.compare_at_price | money_with_currency }}</span>
+                    </div>
+                  </div>
+                </a>
+                {%- form 'product', product, id: product_form_installment_id, class: 'product-add-to-cart-form' -%}
+                  <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                  <input min="1" type="number" name="quantity" value="1" hidden="hidden">
+                {%- endform -%}
+              </div>
+            {%- endif -%}
+          {%- endfor -%}
+
+          <button type="submit" class="popup__submit-button" id="addAllToCartButton">
+            Add All to Cart {% render 'icon-cart' %}
+          </button>
+        </div>
+
+        {% comment %}<button type="submit" class="popup__close-button">{% render 'icon-close' %}</button>{% endcomment %}
+      </div>
+    </div>
+    </div>
+  </div>
+  {%- else -%}
+    <div class="popup__bg">
+      <div class="popup" data-popup-delay="{{ section.settings.popup_delay }}">
+        <div class="popup__container">
+          <div class="popup__row">
+            <div class="popup__column">
+              <img src="{{ section.settings.popup_image | image_url: width: 500 }}"
+                   alt="{{ section.settings.popup_image.alt | escape }}" loading="lazy">
+            </div>
+
+            <div class="popup__column">
+              <h3 class="popup__subheading">{{ section.settings.popup_subheading }}</h3>
+              <h1 class="popup__heading">{{ section.settings.popup_heading }}</h1>
+
+              {%- for block in section.blocks -%}
+                {%- if block.settings.product -%}
+                  {%- assign product = block.settings.product -%}
+                  <div class="popup__product-card product-card" {{ block.shopify_attributes }}>
+                    <a class="product-card__link" href="{{ product.url }}">
+                      {%- for image in product.images limit: 1 -%}
+                        <div class="product-card__image">
+                          <img src="{{ image.src | image_url: width: 200 }}" alt="{{ image.alt | escape }}" loading="lazy">
+                        </div>
+                      {%- endfor -%}
+                      <div class="product-card__body">
+                        {%- for variant in product.variants limit: 1 -%}
+                          <div class="product-card__sku">SKU: {{ variant.sku }}</div>
+                          <div class="product-card__title">{{ product.title | escape }}</div>
+                          <div class="product-card__variant-title">{{ variant.title }}</div>
+                        {%- endfor -%}
+                        <div class="product-card__price">
+                          {{ product.price | money_with_currency }}&nbsp;<span class="product-card__compare-price">{{ product.compare_at_price | money_with_currency }}</span>
+                        </div>
+                      </div>
+                    </a>
+                    {%- form 'product', product, id: product_form_installment_id, class: 'product-add-to-cart-form' -%}
+                      <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+                      <input min="1" type="number" name="quantity" value="1" hidden="hidden">
+                    {%- endform -%}
+                  </div>
+                {%- endif -%}
+              {%- endfor -%}
+
+              <button type="submit" class="popup__submit-button" id="addAllToCartButton">
+                Add All to Cart {% render 'icon-cart' %}
+              </button>
+            </div>
+
+            {% comment %}<button type="submit" class="popup__close-button">{% render 'icon-close' %}</button>{% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  {%- endif -%}
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "t:sections.popup.name",
+  "settings": [
+    {
+      "type": "header",
+      "content": "t:sections.popup.settings.header.content"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_popup",
+      "default": false,
+      "label": "Enable/disable popup"
+    },
+    {
+      "type": "image_picker",
+      "id": "popup_image",
+      "label": "Popup image"
+    },
+    {
+      "type": "text",
+      "id": "popup_subheading",
+      "label": "Subheading",
+      "default": "Get the look"
+    },
+    {
+      "type": "text",
+      "id": "popup_heading",
+      "label": "Heading",
+      "default": "For Business or Ceremony"
+    },
+    {
+      "type": "range",
+      "id": "popup_delay",
+      "min": 0,
+      "max": 10,
+      "step": 1,
+      "unit": "sec",
+      "label": "Delay before popup appear",
+      "default": 0
+    },
+    {
+      "type": "checkbox",
+      "id": "show_once",
+      "default": false,
+      "label": "Show only once per customer "
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "limit": 2,
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Products for popup"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Popup"
+    }
+  ]
+}
+{% endschema %}

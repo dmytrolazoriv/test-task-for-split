@@ -3323,6 +3323,14 @@
       "presets": {
         "name": "Collapsible content"
       }
+    },
+    "popup": {
+      "name": "Popup",
+      "settings": {
+        "header": {
+          "content": "Popup settings"
+        }
+      }
     }
   }
 }
